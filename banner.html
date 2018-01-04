@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+			ul{
+				list-style: none;
+				
+			}
+			.banner_img li{
+				position: absolute;
+				opacity: 0;
+				transition: all 1s;
+			}
+			.active{
+				opacity: 1 !important;
+			}
+			.hid{
+				opacity: 0 !important;
+			}
+			.banner_li li{
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				background-color:peachpuff;
+				float: left;
+				margin-left: 10px;
+				transition: all 1s;
+			}
+			.banner_li{
+				position: absolute;
+				top: 400px;
+				left: 70%;
+			}
+		
+		</style>
+	</head>
+	<body>
+		<div>
+		
+			<ul class="banner_img">
+				<li class="active"><img src="img/banner.png"/></li>
+				<li><img src="img/banner1.png"/></li>
+				<li><img src="img/banner2.png"/></li>
+			</ul>
+			<ul class="banner_li">
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			var liArr=document.querySelectorAll('.banner_li li')
+			var imgArr=document.querySelectorAll('.banner_img li')
+			for(var i=0;i<liArr.length;i++){
+				liArr[i].index=i;
+//				liArr[i].setAttribute('index',i);
+				liArr[i].onmouseover=function(){
+					//alert(i);3这个i是for循环结束后i的值
+					//第一步清掉所有的圆点的背景颜色
+					clearStyle();
+					//第二部设置当前点击的这个圆点的背景颜色
+					this.style.backgroundColor='blue';
+					//this.index
+//					alert('我们应该显示第'+this.index+'个img');
+					//[li,li,li]
+					imgArr[this.index].className='active';
+				}
+			}
+			
+			function clearStyle(){
+				for(var i=0;i<liArr.length;i++){
+					liArr[i].style.backgroundColor='pink';
+				}
+				for(var i=0;i<imgArr.length;i++){
+					imgArr[i].className='hid';
+				}
+			}
+//			var liArr=document.querySelectorAll('.banner_li li')
+//			[li,li,li]
+//			var imgArr=document.querySelectorAll('.banner_img li')
+//			[li,li,li]
+			var n=0;
+			var timer=setInterval(fn,1000);
+			function fn(){
+				if(n==liArr.length){
+					n=0;
+				}
+				clearStyle();
+				liArr[n].style.backgroundColor='blue';
+				imgArr[n].className='active';
+				n++;
+			}
+			document.querySelector('.banner_img').onmouseover=function(){
+				clearInterval(timer);
+				timer=null;
+			}
+			document.querySelector('.banner_img').onmouseout=function(){
+				timer=setInterval(fn,1000);
+			}
+			
+			
+		</script>
+	</body>
+</html>
+
